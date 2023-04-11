@@ -1,37 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void jumpSearch(int *arr, int n, int key)
+void jumpSearch(int arr[], int n, int k)
 {
-    int step = sqrt(n);
-    int prev = 0, comp = 0;
-    while (arr[min(step, n) - 1] < key)
+    int start = 0;
+    int c = 1;
+    int end = sqrt(n);
+    while (arr[end] < k && end < n)
     {
-        prev = step;
-        step += sqrt(n);
-        if (prev >= n)
+        c++;
+        start = end;
+        end = end + sqrt(n);
+        if (end > n - 1)
         {
-            cout << "Not Present " << comp << endl;
+            end = n - 1;
+            break;
+        }
+    }
+    for (int i = start; i <= end; i++)
+    {
+        if (arr[i] == k)
+        {
+            cout << "present " << c;
             return;
         }
-        comp++;
     }
-    while (arr[prev] < key)
-    {
-        prev++;
-        if (prev == min(step, n))
-        {
-            cout << "Not Present " << comp << endl;
-            return;
-        }
-        comp++;
-    }
-    if (arr[prev] == key)
-    {
-        cout << "Present " << comp << endl;
-        return;
-    }
-    cout << "Not Present " << comp << endl;
+    cout << "not present " << c;
 }
 int main()
 {
